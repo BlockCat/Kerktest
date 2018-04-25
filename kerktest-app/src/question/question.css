@@ -14,7 +14,7 @@
 }
 
 .container .question>h1 {
-    padding: 1em;    
+    padding: 1.3rem;    
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     background: url("../../public/img/signpost.jpg") center;
@@ -28,7 +28,7 @@
     padding: 1em;
     max-width: 60%;
     font-family: 'Titillium Web';
-    font-size: 2em;
+    font-size: 1.2em;
 
     -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
     box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);

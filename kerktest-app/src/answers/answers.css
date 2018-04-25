@@ -1,0 +1,43 @@
+.container {
+    background: white;
+    margin: 0 auto;
+    padding: 1em;
+}
+
+.container .answers {
+    background: #fff;
+    border-radius: 5px;
+
+    -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    padding: 0 0 1em 0;
+}
+
+.container .answers {
+    margin: 0 auto;
+    max-width: 70%;
+}
+
+.container .answers table {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.container .answers tr.answer {    
+    
+}
+
+.container .answers tr.answer td:last-child {
+    font-size: 1.2em;
+}
+@media only screen and (max-width: 900px) {
+    .container {
+        margin: 0;
+    }
+
+    
+    .container .answers {
+        margin: 0 auto;
+        max-width: 100%;
+    }
+}

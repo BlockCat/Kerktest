@@ -1,5 +1,7 @@
 package app
 
+import answer.answers
+import kerktest.browser
 import react.*
 import question.Question
 import question.question
@@ -22,13 +24,28 @@ class App : RComponent<RProps, AppState>() {
     }
 
     override fun RBuilder.render() {
+
         div("container") {
-            question(questions[state.index]) {
-                setState {
-                    answers[questions[index]] = it
-                    index = if (index + 1 < questions.size) index + 1 else index
-                }
+            if (state.index < questions.size) {
+                val currentQuestion = questions[state.index]
+                question(state.index, currentQuestion, state.answers[currentQuestion]) { selectAnswer(it) }
+                browser(questions, state.answers) { switchIndex(it) }
+            } else {
+                answers(questions.size, state.answers)
             }
+        }
+    }
+
+    private fun selectAnswer(answer: Answer) {
+        setState {
+            answers[questions[index]] = answer
+            index += 1
+        }
+    }
+
+    private fun switchIndex(newIndex: Int) {
+        setState {
+            index = newIndex
         }
     }
 }
