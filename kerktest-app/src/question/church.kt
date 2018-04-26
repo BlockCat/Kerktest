@@ -1,7 +1,7 @@
 package question
 
 enum class Church(val n: String) {
-    KATHOLIEK("Katholiek"),
+    KATHOLIEK("Rooms-katholiek"),
     MODERN_GEREFORMEERD("Modern-gereformeerd"),
     ORTHODOX_GEREFORMEERD("Orthodox-gereformeerd"),
     BEVINDELIJK_GEREFORMEERD("Bevindelijk-gereformeerd"),
