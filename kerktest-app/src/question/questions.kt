@@ -1,6 +1,8 @@
 package question
 
 import question.Church.*
+data class Answer(val text: String,val influence: List<Church> = emptyList())
+data class Question(val question: String, val answers: List<Answer> = emptyList(), var selected: Answer? = null)
 
 fun getQuestions(): List<Question> =
         listOf(

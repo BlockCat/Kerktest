@@ -5,8 +5,6 @@ import kotlinx.html.js.onClickFunction
 import react.*
 import react.dom.*
 
-data class Answer(val text: String,val influence: List<Church>)
-data class Question(val question: String, val answers: List<Answer>, var selected: Answer? = null)
 
 interface QuestionState : RState {}
 interface QuestionProps: RProps {
