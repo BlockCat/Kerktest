@@ -1,6 +1,7 @@
 # Kerktest.nl
 
-Kerktest website made in JavaScript.
+De Kerktest website is gemaakt in twee delen: 
+De home pagina in html en de vragenlijst in kotlin/react.
 
 # Introduction
 
@@ -13,20 +14,21 @@ De test is ontwikkeld door diverse christelijke studenten en het criterium voor 
 ## Requirements:
 * NodeJS
 * npm/yarn
+* create-react-kotlin-app
 
 # Notes
-This project uses NodeJS and JavaScript. We use Express for handling requests and EJS for rendering html pages.
+This project uses NodeJS for development only. We compile kotlin to react.
 
 ## Setting up development
 1. Download the source code via ```git clone```
 2. If you have npm installed run ```npm install```, or if you have yarn run ```yarn install```
-3. Run the development server via ```node server.js```
+3. Run the development server of the kerktest-app via ```node start```
 
 ## Project structure
-- kerktest
-- - data: The folder containing the questions
-- - public: The folder containing files that are served as is. These include image or css files.
-- - views: The folder containing the html pages
-- - - basics: template views that are included in every page
-- - - home: The home html page
-- - - test: The test html page
+- css: css files
+- fonts: font files
+- img: image files
+- kerktest-app
+- - public: public files
+- - src: folder with source code
+- index.html
