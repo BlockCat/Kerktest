@@ -7,12 +7,13 @@
     "react-dom": "^16.3.2"
   },
   "devDependencies": {
+    "create-react-kotlin-app": "^1.0.7",
     "react-scripts-kotlin": "2.1.9"
   },
   "scripts": {
-    "start": "react-scripts-kotlin start",
-    "build": "react-scripts-kotlin build",
-    "eject": "react-scripts-kotlin eject",
+    "start": "node ./node_modules/react-scripts-kotlin/scripts/start.js",
+    "build": "node ./node_modules/react-scripts-kotlin/scripts/build.js",
+    "eject": "node ./node_modules/react-scripts-kotlin/scripts/eject.js",
     "gen-idea-libs": "react-scripts-kotlin gen-idea-libs",
     "get-types": "react-scripts-kotlin get-types --dest=src/types",
     "postinstall": "npm run gen-idea-libs"
