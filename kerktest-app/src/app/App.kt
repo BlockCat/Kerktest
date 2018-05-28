@@ -11,6 +11,7 @@ import react.dom.div
 
 interface AppState: RState {
     var answers: MutableMap<Question, Answer>
+    var important: MutableMap<Question, Int>
     var index: Int
 }
 
@@ -20,6 +21,7 @@ class App : RComponent<RProps, AppState>() {
 
     override fun AppState.init() {
         answers = mutableMapOf()
+        important = mutableMapOf()
         index = 0
     }
 
@@ -31,7 +33,7 @@ class App : RComponent<RProps, AppState>() {
                 question(state.index, currentQuestion, state.answers[currentQuestion]) { selectAnswer(it) }
                 browser(questions, state.answers) { switchIndex(it) }
             } else {
-                answers(questions.size, state.answers)
+                answers(questions.size, state.answers, state.important)
             }
         }
     }
@@ -39,6 +41,7 @@ class App : RComponent<RProps, AppState>() {
     private fun selectAnswer(answer: Answer) {
         setState {
             answers[questions[index]] = answer
+            important[questions[index]] = answer.important
             index += 1
         }
     }

@@ -8,8 +8,9 @@ import kotlinx.html.js.onClickFunction
 import question.Answer
 import question.Church
 import question.Question
+import kotlin.math.roundToInt
 
-fun RBuilder.answers(amountOfQuestions: Int, answers: Map<Question, Answer>) {
+fun RBuilder.answers(amountOfQuestions: Int, answers: Map<Question, Answer>, importance: Map<Question, Int>) {
     div("container") {
         div("answers") {
             table {
@@ -17,7 +18,7 @@ fun RBuilder.answers(amountOfQuestions: Int, answers: Map<Question, Answer>) {
                     th { +"Relevantie" }
                     th { +"Stroming" }
                 }
-                calculateStuff(answers).forEach { (church, value) ->
+                calculateStuff(answers, importance).forEach { (church, value) ->
                     entry(church, value / amountOfQuestions.toDouble())
                 }
             }
@@ -27,17 +28,20 @@ fun RBuilder.answers(amountOfQuestions: Int, answers: Map<Question, Answer>) {
 
 private fun RBuilder.entry(church: Church, value: Double) {
     tr("answer") {
-        td { + "${value * 100}%" }
+        td { + "${(value * 100).roundToInt()}%" }
         td { + church.n}
     }
 }
 
-private fun calculateStuff(answers: Map<Question, Answer>): List<Pair<Church, Int>> {
+
+
+
+private fun calculateStuff(answers: Map<Question, Answer>, importance: Map<Question, Int>): List<Pair<Church, Int>> {
     val churches: MutableMap<Church, Int> = mutableMapOf()
 
     answers.forEach { (q, a) ->
         a.influence.forEach {
-            churches[it] = (churches[it] ?: 0) + 1
+            churches[it] = (churches[it] ?: 0) + (importance[q] ?: 1)
         }
     }
 

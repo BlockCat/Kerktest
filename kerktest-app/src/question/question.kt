@@ -26,8 +26,15 @@ class QuestionComponent: RComponent<QuestionProps, QuestionState>() {
     override fun RBuilder.render() {
         val question = props.question
 
+
         div("question") {
+
             h1 { +"${props.index + 1}. ${question.question}" }
+
+            /*div("answer") {
+                +"Belangrijk voor mij"
+            }*/
+
             question.answers.withIndex().forEach { (a, it) ->
                 answer(a, it)
             }

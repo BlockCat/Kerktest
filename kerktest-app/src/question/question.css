@@ -35,6 +35,16 @@
 }
 
 
+.container .question .row {
+    display: flex;
+    flex-direction: horizontal;
+}
+.container .question .row .right {
+    float: right;
+}
+.container .question .row .flex-3 {
+    flex: 1;
+}
 .container .question .answer:last-child {
     border-bottom-left-radius:  5px;
     border-bottom-right-radius:  5px;
