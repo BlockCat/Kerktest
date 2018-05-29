@@ -1,0 +1,85 @@
+.container {
+    background: white;
+    margin: 0 auto;
+    padding: 1em;
+}
+
+.container .question {
+    background: #fff;
+    border-radius: 5px;
+
+    -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    padding: 0 0 1em 0;
+}
+
+.container .question>h1 {
+    padding: 1.3rem;    
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: url("../../public/img/signpost.jpg") center;
+    background-size: cover;
+    font-family: Lora, serif
+}
+
+.container .question .answer {
+    background: #fff;    
+    margin: 0 auto;        
+    padding: 1em;
+    max-width: 60%;
+    font-family: 'Titillium Web';
+    font-size: 1.2em;
+
+    -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+}
+
+
+.container .question .row {
+    display: flex;
+    flex-direction: horizontal;
+}
+.container .question .row .right {
+    float: right;
+}
+.container .question .row .flex-3 {
+    flex: 1;
+}
+.container .question .answer:last-child {
+    border-bottom-left-radius:  5px;
+    border-bottom-right-radius:  5px;
+}
+
+.container .question .answer:nth-child(2) {
+    border-top-left-radius:  5px;
+    border-top-right-radius:  5px;
+}
+
+.container .question .answer:hover {
+    background: #ddd;
+}
+
+.container .question .answer.selected {
+    background: #ff7e7e;    
+    color: white;
+}
+
+.container .question .answer h1>span {
+    margin-left: 1em;
+}
+
+@media only screen and (max-width: 900px) {
+    .container {
+        margin: 0;
+    }
+
+    .container .question {
+        margin: 0;
+        padding: 0;
+    }
+
+    .container .question .answer {
+        margin: 0;        
+        max-width: 100%;
+    }
+}
