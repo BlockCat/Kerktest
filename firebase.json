@@ -1,0 +1,25 @@
+{
+  "hosting": {
+	"predeploy": [		
+		"npm run build --prefix kerktest-app",
+		"rm -rf public/test",
+		"cp -r kerktest-app/build public/test"
+	],
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+	  {
+        "source": "/test/**",
+        "destination": "/test/index.html"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

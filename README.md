@@ -15,6 +15,7 @@ De test is ontwikkeld door diverse christelijke studenten en het criterium voor 
 * NodeJS
 * npm/yarn
 * create-react-kotlin-app
+* firebase
 
 # Notes
 This project uses NodeJS for development only. We compile kotlin to react.
@@ -22,7 +23,13 @@ This project uses NodeJS for development only. We compile kotlin to react.
 ## Setting up development
 1. Download the source code via ```git clone```
 2. If you have npm installed run ```npm install```, or if you have yarn run ```yarn install```
-3. Run the development server of the kerktest-app via ```node start```
+1. Install the firebase cli
+3. Run the development server via ```firebase serve```
+
+## Deploy
+1. Install the firebase cli
+2. Log into firebase project
+3. Run ```firebase deploy``` to deploy
 
 ## Project structure
 - css: css files
