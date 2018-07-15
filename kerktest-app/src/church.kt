@@ -1,4 +1,4 @@
-package question
+package kerktest
 
 enum class Church(val n: String) {
     KATHOLIEK("Rooms-katholiek"),
@@ -10,3 +10,5 @@ enum class Church(val n: String) {
     TRADITIONEEL_EVANGELISCH("Traditioneel evangelisch"),
     ALTERNATIEVE_STROMINGEN("Alternatieve stromingen")
 }
+
+fun getChurches() = Church.values().toList()

@@ -1,16 +1,13 @@
 package app
 
-import answer.answers
+import kerktest.results
 import kerktest.browser
 import react.*
-import question.Question
-import question.question
-import question.Answer
-import question.getQuestions
+import kerktest.*
 import react.dom.div
 
 interface AppState: RState {
-    var answers: MutableMap<Question, Answer>
+    var answers: MutableMap<Question, Answer?>
     var important: MutableMap<Question, Int>
     var index: Int
 }
@@ -20,7 +17,7 @@ class App : RComponent<RProps, AppState>() {
     val questions = getQuestions()
 
     override fun AppState.init() {
-        answers = mutableMapOf()
+        answers = getQuestions().associate { Pair(it, null as Answer?) }.toMutableMap()
         important = mutableMapOf()
         index = 0
     }
@@ -33,7 +30,7 @@ class App : RComponent<RProps, AppState>() {
                 question(state.index, currentQuestion, state.answers[currentQuestion]) { selectAnswer(it) }
                 browser(questions, state.answers) { switchIndex(it) }
             } else {
-                answers(questions.size, state.answers, state.important)
+                results(getChurches(), state.answers, state.important)
             }
         }
     }

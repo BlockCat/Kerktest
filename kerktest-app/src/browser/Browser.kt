@@ -4,13 +4,11 @@ import react.*
 import react.dom.*
 import kotlinx.html.classes
 import kotlinx.html.js.onClickFunction
-import question.Answer
-import question.Question
 
-fun RBuilder.browser(list: List<Question>, answers: Map<Question, Answer>, switchIndex: (Int) -> Unit) {
+fun RBuilder.browser(list: List<Question>, answers: Map<Question, Answer?>, switchIndex: (Int) -> Unit) {
     div("question-browser") {
         div("list") {
-            list.withIndex().forEach { (i, q) ->
+            list.filter { it.display }.withIndex().forEach { (i, q) ->
                 item(i, answers[q]) {switchIndex(it)}
             }
         }
