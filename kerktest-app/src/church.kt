@@ -6,8 +6,8 @@ enum class Church(val n: String) {
     ORTHODOX_GEREFORMEERD("Orthodox-gereformeerd"),
     BEVINDELIJK_GEREFORMEERD("Bevindelijk-gereformeerd"),
     VRIJZINNIG("Vrijzinnig"),
-    CHARISMATISCH("Charismatisch evangelisch"),
-    TRADITIONEEL_EVANGELISCH("Traditioneel evangelisch"),
+    CHARISMATISCH("Charismatisch-evangelisch"),
+    TRADITIONEEL_EVANGELISCH("Traditioneel-evangelisch"),
     ALTERNATIEVE_STROMINGEN("Alternatieve stromingen")
 }
 
