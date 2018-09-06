@@ -16,25 +16,29 @@ interface QuestionState : RState {
 interface QuestionProps: RProps {
     var index: Int
     var question: Question
+    var startImportance: Double
     var selectedAnswer: Answer?
     var onButtonSelect: (Answer) -> Unit
+    var onSliderChange: (Double) -> Unit
 }
 
-fun RBuilder.question(index: Int, question: Question, selected: Answer?, onButtonSelect: (Answer) -> Unit) = child(QuestionComponent::class) {
+fun RBuilder.question(index: Int, question: Question, selected: Answer?, startImportance: Double, onButtonSelect: (Answer) -> Unit, onSliderChange: (Double) -> Unit) = child(QuestionComponent::class) {
     attrs.index = index
     attrs.question = question
     attrs.onButtonSelect = onButtonSelect
     attrs.selectedAnswer = selected
+    attrs.onSliderChange = onSliderChange
+    attrs.startImportance = startImportance
 }
 
 class QuestionComponent(props: QuestionProps): RComponent<QuestionProps, QuestionState>(props) {
 
     init {
-        state.slider = scaleNumber(props.question.importance)
+        state.slider = scaleNumber(props.startImportance)
     }
 
     override fun componentWillReceiveProps(nextProps: QuestionProps) {
-        state.slider = scaleNumber(nextProps.question.importance)
+        state.slider = scaleNumber(nextProps.startImportance)
 
     }
 
@@ -66,14 +70,14 @@ class QuestionComponent(props: QuestionProps): RComponent<QuestionProps, Questio
     }
 
     override fun RBuilder.render() {
-        val question = props.question
+
 
         div("question") {
-            val prefix = if (question.display) {"${props.index + 1}. "} else { "" }
+            val prefix = if (props.question.display) {"${props.index + 1}. "} else { "" }
 
-            h1 { +"$prefix${question.question}" }
+            h1 { +"$prefix${props.question.question}" }
             div("importance") {
-                if (question.slider) {
+                if (props.question.slider) {
                     div("header") {
                         div { +"Onbelangrijk" }
                         div { +"Belangrijk" }
@@ -85,7 +89,7 @@ class QuestionComponent(props: QuestionProps): RComponent<QuestionProps, Questio
                             attrs {
                                 min = "0"
                                 max = "100"
-                                defaultValue = "${(question.importance * 100).toInt()}"
+                                defaultValue = "${(props.startImportance * 100).toInt()}"
                                 value = "${state.slider}"
                                 classes = setOf("slider")
 
@@ -95,14 +99,14 @@ class QuestionComponent(props: QuestionProps): RComponent<QuestionProps, Questio
                                     setState {
                                         slider = newValue
                                     }
-                                    question.importance = inverseScaleNumber(newValue)
+                                    props.onSliderChange(inverseScaleNumber(newValue))
                                 }
                             }
                         }
                     }
                 }
             }
-            question.answers.withIndex().forEach { (a, it) ->
+            props.question.answers.withIndex().forEach { (a, it) ->
                 answer(a, it)
             }
         }

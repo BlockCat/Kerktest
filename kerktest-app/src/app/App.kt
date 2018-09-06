@@ -8,7 +8,7 @@ import react.dom.div
 
 interface AppState: RState {
     var answers: MutableMap<Question, Answer?>
-    //var important: MutableMap<Question, Int>
+    var questionImportance: MutableMap<Question, Double> // Don't store info in the question object, this object should be static
     var index: Int
 }
 
@@ -19,7 +19,7 @@ class App : RComponent<RProps, AppState>() {
     override fun AppState.init() {
         questions = getQuestions()
         answers = questions.associate { Pair(it, null as Answer?) }.toMutableMap()
-        //important = mutableMapOf()
+        questionImportance = mutableMapOf()
         index = 0
     }
 
@@ -28,10 +28,10 @@ class App : RComponent<RProps, AppState>() {
         div("container") {
             if (state.index < questions.size) {
                 val currentQuestion = questions[state.index]
-                question(state.index, currentQuestion, state.answers[currentQuestion]) { selectAnswer(it) }
+                question(state.index, currentQuestion, state.answers[currentQuestion], state.questionImportance[currentQuestion] ?: 1.0, ::selectAnswer, ::changeSlider)
                 browser(questions, state.answers) { switchIndex(it) }
             } else {
-                results(getChurches(), state.answers)
+                results(getChurches(), state.answers, state.questionImportance)
             }
         }
     }
@@ -41,6 +41,12 @@ class App : RComponent<RProps, AppState>() {
             answers[questions[index]] = answer
             //important[questions[index]] = answer.important
             index += 1
+        }
+    }
+
+    private fun changeSlider(importance: Double) {
+        setState {
+            questionImportance[questions[index]] = importance
         }
     }
 

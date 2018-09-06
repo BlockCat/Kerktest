@@ -10,7 +10,7 @@ import kotlin.math.roundToInt
 @JsName("gtag")
 external fun gtag(method: String, tag: String, payload: Json)
 
-fun RBuilder.results(churches: List<Church>, answers: Map<Question, Answer?>) {
+fun RBuilder.results(churches: List<Church>, answers: Map<Question, Answer?>, questionImportance: Map<Question, Double>) {
     div("container") {
         div("results") {
             table {
@@ -40,10 +40,10 @@ fun RBuilder.results(churches: List<Church>, answers: Map<Question, Answer?>) {
                         gtag("event", "answers", payload)
                     }
 
-                    val completeSum = answers.keys.sumByDouble { it.importance * (answers[it]?.important ?: 1)}
+                    // Calculate the maximum amount of points a church can have
+                    val completeSum = answers.keys.filter { !it.ignore }.sumByDouble {(questionImportance[it] ?: 1.0 ) * (answers[it]?.important ?: 1)}
 
-                    calculateStuff(churches, answers).forEach { (church, value) ->
-                        console.log(church, value)
+                    calculateStuff(churches, answers, questionImportance).forEach { (church, value) ->
                         entry(church, value / completeSum)
                     }
                 }
@@ -59,14 +59,14 @@ private fun RBuilder.entry(church: Church, value: Double) {
     }
 }
 
-private fun calculateStuff(churches: List<Church>, answers: Map<Question, Answer?>): List<Pair<Church, Int>> {
+private fun calculateStuff(churches: List<Church>, answers: Map<Question, Answer?>, questionImportance: Map<Question, Double>): List<Pair<Church, Double>> {
     val churches: MutableMap<Church, Double> = churches.associate { Pair(it, 0.0) }.toMutableMap()
 
     answers.forEach { (q, a) ->
         a?.influence?.forEach {
-            churches[it] = (churches[it] ?: 0.0) + (a.important * q.importance)//(importance[q] ?: 1) * q.importance
+            churches[it] = (churches[it] ?: 0.0) + (a.important * (questionImportance[q] ?: 1.0))
         }
     }
 
-    return churches.toList().map { (church, score) -> Pair(church, score.toInt()) }.sortedByDescending { it.second }
+    return churches.toList().map { (church, score) -> Pair(church, score) }.sortedByDescending { it.second }
 }
