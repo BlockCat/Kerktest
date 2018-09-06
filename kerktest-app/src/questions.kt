@@ -3,7 +3,7 @@ package kerktest
 import kerktest.Church.*
 
 open class Answer(val text: String, val influence: List<Church> = emptyList(), var important: Int = 1)
-data class Question(val question: String, val answers: List<Answer> = emptyList(), var selected: Answer? = null, val display: Boolean = true, var importance: Double = 1.0)
+data class Question(val question: String, val answers: List<Answer> = emptyList(), var selected: Answer? = null, val display: Boolean = true, var importance: Double = 1.0, var slider : Boolean = true)
 
 class MultipleChoice(text_: String, val answers: List<Answer> = emptyList()) : Answer(text_, emptyList())
 
@@ -127,8 +127,8 @@ fun getQuestions(): List<Question> =
                 Question("Ben je momenteel lid van een kerk?", listOf(
                         Answer("Nee", listOf()),
                         MultipleChoice("Ja: ", values().map { Answer("${it.n}") })
-                ), display = false),
+                ), display = false, importance = 0.0, slider = false),
                 Question("Welke stroming verwacht je dat de test je zal kwalificeren?",
                         listOf(MultipleChoice("", values().map { Answer(it.n) })
-                ), display = false)
+                ), display = false, importance = 0.0, slider = false)
         )

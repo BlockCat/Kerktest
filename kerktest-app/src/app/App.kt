@@ -8,17 +8,18 @@ import react.dom.div
 
 interface AppState: RState {
     var answers: MutableMap<Question, Answer?>
-    var important: MutableMap<Question, Int>
+    //var important: MutableMap<Question, Int>
     var index: Int
 }
 
 class App : RComponent<RProps, AppState>() {
 
-    val questions = getQuestions()
+    lateinit var questions: List<Question>
 
     override fun AppState.init() {
-        answers = getQuestions().associate { Pair(it, null as Answer?) }.toMutableMap()
-        important = mutableMapOf()
+        questions = getQuestions()
+        answers = questions.associate { Pair(it, null as Answer?) }.toMutableMap()
+        //important = mutableMapOf()
         index = 0
     }
 
@@ -30,7 +31,7 @@ class App : RComponent<RProps, AppState>() {
                 question(state.index, currentQuestion, state.answers[currentQuestion]) { selectAnswer(it) }
                 browser(questions, state.answers) { switchIndex(it) }
             } else {
-                results(getChurches(), state.answers, state.important)
+                results(getChurches(), state.answers)
             }
         }
     }
@@ -38,7 +39,7 @@ class App : RComponent<RProps, AppState>() {
     private fun selectAnswer(answer: Answer) {
         setState {
             answers[questions[index]] = answer
-            important[questions[index]] = answer.important
+            //important[questions[index]] = answer.important
             index += 1
         }
     }

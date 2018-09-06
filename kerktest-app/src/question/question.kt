@@ -73,31 +73,33 @@ class QuestionComponent(props: QuestionProps): RComponent<QuestionProps, Questio
 
             h1 { +"$prefix${question.question}" }
             div("importance") {
-                div("header") {
-                    div {+"Onbelangrijk"}
-                    div {+"Belangrijk"}
-                }
-                div("slide-container") {
+                if (question.slider) {
+                    div("header") {
+                        div { +"Onbelangrijk" }
+                        div { +"Belangrijk" }
+                    }
 
-                    input(InputType.range) {
-                        attrs {
-                            min = "0"
-                            max = "100"
-                            defaultValue = "${(question.importance * 100).toInt()}"
-                            value = "${state.slider}"
-                            classes = setOf("slider")
+                    div("slide-container") {
 
-                            onChangeFunction = {event ->
-                                var newValue = (event.target as HTMLInputElement).valueAsNumber.toInt()
+                        input(InputType.range) {
+                            attrs {
+                                min = "0"
+                                max = "100"
+                                defaultValue = "${(question.importance * 100).toInt()}"
+                                value = "${state.slider}"
+                                classes = setOf("slider")
 
-                                setState {
-                                    slider = newValue
+                                onChangeFunction = { event ->
+                                    var newValue = (event.target as HTMLInputElement).valueAsNumber.toInt()
+
+                                    setState {
+                                        slider = newValue
+                                    }
+                                    question.importance = inverseScaleNumber(newValue)
                                 }
-                                question.importance = inverseScaleNumber(newValue)
                             }
                         }
                     }
-
                 }
             }
             question.answers.withIndex().forEach { (a, it) ->
