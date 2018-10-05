@@ -11,9 +11,11 @@ import kotlin.math.roundToInt
 external fun gtag(method: String, tag: String, payload: Json)
 
 fun RBuilder.results(churches: List<Church>, answers: Map<Question, Answer?>, questionImportance: Map<Question, Double>) {
-    div("container") {
+
+
+    div("signpost"){
         div("results") {
-            table {
+            table("table") {
                 thead {
                     tr {
                         th { +"Score" }
@@ -31,17 +33,19 @@ fun RBuilder.results(churches: List<Church>, answers: Map<Question, Answer?>, qu
                                 Pair("Importance", "$importance"))
 
                         gtag("config", "UA-121801911-1", json(
-                            Pair("custom_map", json(
-                                Pair("dimension2", "Question"),
-                                Pair("metric3", "Answer"),
-                                Pair("metric4", "Importance")
-                            ))
+                                Pair("custom_map", json(
+                                        Pair("dimension2", "Question"),
+                                        Pair("metric3", "Answer"),
+                                        Pair("metric4", "Importance")
+                                ))
                         ))
                         gtag("event", "answers", payload)
                     }
 
                     // Calculate the maximum amount of points a church can have
-                    val completeSum = answers.keys.filter { !it.ignore }.sumByDouble {(questionImportance[it] ?: 1.0 ) * (answers[it]?.important ?: 1)}
+                    val completeSum = answers.keys.filter { !it.ignore }.sumByDouble {
+                        (questionImportance[it] ?: 1.0) * (answers[it]?.important ?: 1)
+                    }
 
                     calculateStuff(churches, answers, questionImportance).forEach { (church, value) ->
                         entry(church, value / completeSum)
