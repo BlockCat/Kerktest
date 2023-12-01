@@ -25,20 +25,22 @@
 
     border-radius: 10px;
 
-    width: fit-content;
+    width: 50vw;
     max-width: 70vw;
     padding: 10px;
     margin: 20px auto;
+
+    border-radius: 5px;
+    box-shadow: 1px 1px 10px;
 }
 
 .container .signpost {
-    border-radius: 5px;
-    box-shadow: 1px 1px 10px;
+
     background: url("../../public/img/signpost2.jpeg") center;
     background-size: cover;
     height: 50vh;
     padding: 4em;
-    max-width: 70vw;
+    max-width: 80vw;
     margin: auto;
 }
 
@@ -70,7 +72,10 @@
     
     .container .results {
         margin: 0 auto;
+        padding: 0;
+        padding-top: 1em;
         max-width: 100%;
+        width: 100%;
     }
 
 }
